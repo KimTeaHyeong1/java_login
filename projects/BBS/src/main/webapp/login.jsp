@@ -33,6 +33,7 @@
 					<ul class="dropdown-menu">
 						<li class="active"><a href=login.jsp>로그인</a>
 						<li><a href="join.jsp">회원가입</a>
+						
 					</ul>
 				</li>
 			</ul>
