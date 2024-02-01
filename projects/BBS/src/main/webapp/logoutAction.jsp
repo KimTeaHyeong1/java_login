@@ -7,6 +7,9 @@
 <title>JSP 김민형 사이트</title>
 </head>
 <body>
+	<%
+		session.invalidate();
+	%>
 	<script>
 		location.href = 'main.jsp';
 	</script>
