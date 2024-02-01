@@ -56,4 +56,25 @@ public class UserDAO {
 		}
 		return -1;
 	}
+	
+	public int deleteUser(String userID) {
+	    String SQL = "DELETE FROM USER WHERE userID = ?";
+	    try {
+	        pstmt = conn.prepareStatement(SQL);
+	        pstmt.setString(1, userID);
+	        int result = pstmt.executeUpdate();
+	        System.out.println("Deleted " + result + " user(s) with ID: " + userID);
+	        return result;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return -1;
+	}
+
 }

@@ -70,5 +70,7 @@
 	</nav>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<a href=upDate.jsp>수정하기</a>
+	<a href=userDelete.jsp>삭제하기</a>
 </body>
 </html>
