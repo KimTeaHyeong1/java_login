@@ -13,17 +13,17 @@ public class UserDAO {
 	
 	public UserDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/BBS";
+			String dbURL = "jdbc:mysql://localhost:3306/BBS?useSSL=false";
 			String dbID = "root";
-			String dbPassword = "root";
-			Class.forName("com.mysql.jdbc.Driver");
+			String dbPassword = "0000";
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	public int login(String userID, String userPassword) {
-		System.out.println(userPassword);
+		System.out.println("check");
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
