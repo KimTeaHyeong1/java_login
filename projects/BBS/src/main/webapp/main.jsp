@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%
-		String userID = null;;
+		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
@@ -70,7 +70,7 @@
 	</nav>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<a href=upDate.jsp>수정하기</a>
-	<a href=userDelete.jsp>삭제하기</a>
+	<a href=update.jsp>수정하기</a>
+	<a href=delete.jsp>삭제하기</a>
 </body>
 </html>
