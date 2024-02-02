@@ -18,11 +18,11 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="home.jsp">JSP 김민형 웹사이트</a>
+			<a class="navbar-brand" href="home.html">JSP 김민형 웹사이트</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul>
-				<li><a href="home.jsp">홈</a></li>
+				<li><a href="home.html">홈</a></li>
 				<li><a href="bbs.jsp">게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

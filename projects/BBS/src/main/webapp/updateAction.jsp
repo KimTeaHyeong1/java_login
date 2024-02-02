@@ -61,5 +61,6 @@
 		} 
 	}
 	%>
+	<a href=home.html>돌아가기(미구현)</a>
 </body>
 </html>

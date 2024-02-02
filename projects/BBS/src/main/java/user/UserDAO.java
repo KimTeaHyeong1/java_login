@@ -71,16 +71,20 @@ public class UserDAO {
         }
     }
     public int update(String userID, String userPassword, String userName, String userGender, String userEmail) {
-        String SQL = "update userPassword, userName, userGender, userEmail FROM USER WHERE userID = ?, ?, ?, ?, ?";
+        String SQL = "update userID, userPassword, userName, userGender, userEmail FROM USER WHERE user = ?, ?, ?, ?, ?";
         try {
             pstmt = conn.prepareStatement(SQL);
             pstmt.setString(1, userID);
-            rs = pstmt.executeQuery();
+            pstmt.setString(2, userPassword);
+            pstmt.setString(3, userName);
+            pstmt.setString(4, userGender);
+            pstmt.setString(5, userEmail);
+            pstmt.executeUpdate();
             if (rs.next()) {
                 if (rs.getString(1).equals(userPassword)) {
                     return 1;
                 } else {
-                    return 0;
+                    return -1;
                 }
             }
             return -1;
