@@ -21,6 +21,26 @@
 		userID = (String) session.getAttribute("userID");
 	}
 
+	String userPassword = null;
+	if(session.getAttribute("userPassword") != null) {
+		userPassword = (String) session.getAttribute("userPassword");
+	}
+	
+	String userName = null;
+	if(session.getAttribute("userName") != null) {
+		userName = (String) session.getAttribute("userName");
+	}
+	
+	String userGender = null;
+	if(session.getAttribute("userGender") != null) {
+		userGender = (String) session.getAttribute("userGender");
+	}
+	
+	String userEmail = null;
+	if(session.getAttribute("userEmail") != null) {
+		userEmail = (String) session.getAttribute("userEmail");
+	}
+	
 	if (user.getUserID() == null || user.getUserPassword() == null ||
 		user.getUserName() == null || user.getUserGender() == null ||
 		user.getUserEmail() == null) {
@@ -30,21 +50,15 @@
 		script.println("history.back()");
 		script.println("</script>");
 	} else {
-		UserDAO userDAO = new UserDAO();	
-		int result = userDAO.update("userID, userPassword, userName, userGender, userEmail");
+		UserDAO userDAO = new UserDAO();
+		int result = userDAO.update(userID, userPassword, userName, userGender, userEmail);
 		if (result == -1) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('존재하는 아이디입니다.')");
 			script.println("history.back()");
 			script.println("</script>");
-		} else {
-			session.setAttribute("userID", user.getUserPassword());
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("location.href = 'home.jsp'");
-			script.println("</script>");
-		}
+		} 
 	}
 	%>
 </body>

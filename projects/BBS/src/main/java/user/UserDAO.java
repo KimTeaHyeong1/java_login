@@ -48,7 +48,7 @@ public class UserDAO {
         try {
             pstmt = conn.prepareStatement(SQL);
             pstmt.setString(1, user.getUserID());
-            pstmt.setString(2, user.getUserPassword());
+            pstmt.setString(2, user.getUserPassword(	));
             pstmt.setString(3, user.getUserName());
             pstmt.setString(4, user.getUserGender());
             pstmt.setString(5, user.getUserEmail());
@@ -70,7 +70,7 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    public int update(String userID, String userPassword) {
+    public int update(String userID, String userPassword, String userName, String userGender, String userEmail) {
         String SQL = "update userPassword, userName, userGender, userEmail FROM USER WHERE userID = ?, ?, ?, ?, ?";
         try {
             pstmt = conn.prepareStatement(SQL);
