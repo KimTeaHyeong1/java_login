@@ -54,7 +54,7 @@ public class UserDAO {
             pstmt.setString(5, user.getUserEmail());
             pstmt.executeUpdate();
             return 1; 
-        } catch (Exception e) {
+        } catch (Exception e) {	
             e.printStackTrace();
         }
         return -1; 
@@ -70,19 +70,23 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-
-    public void update(User user) {
-        String SQL = "UPDATE USER SET userPassword=?, userName=?, userGender=?, userEmail=? WHERE userID=?";
+    public int update(String userID, String userPassword) {
+        String SQL = "update userPassword, userName, userGender, userEmail FROM USER WHERE userID = ?, ?, ?, ?, ?";
         try {
             pstmt = conn.prepareStatement(SQL);
-            pstmt.setString(1, user.getUserPassword());
-            pstmt.setString(2, user.getUserName());
-            pstmt.setString(3, user.getUserGender());
-            pstmt.setString(4, user.getUserEmail());
-            pstmt.setString(5, user.getUserID());
-            pstmt.executeUpdate();
+            pstmt.setString(1, userID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString(1).equals(userPassword)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+            return -1;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -2;
     }
 }

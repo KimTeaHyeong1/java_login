@@ -1,62 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "user.UserDAO" %>
+<%@ page import="java.io.PrintWriter" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:setProperty name="user" property="userID" />
+<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userGender" />
+<jsp:setProperty name="user" property="userEmail" />
 <!DOCTYPE html>
 <html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="css/bootstrap.css"><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<!DOCTYPE html>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="css/bootstrap.css">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP 김민형 사이트</title>
-</head>
-<body>
-<%
-    String userID = request.getParameter("userID");
-    String userPassword = request.getParameter("userPassword");
-    String userName = request.getParameter("userName");
-
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BBS?useSSL=false", "root", "0000")) {
-        String selectSQL = "SELECT userID, userPassword FROM user WHERE userID=?";
-        try (PreparedStatement selectStmt = conn.prepareStatement(selectSQL)) {
-            selectStmt.setString(1, userID);
-            try (ResultSet rs = selectStmt.executeQuery()) {
-                if (rs.next()) {
-                    String rUserID = rs.getString("userID");
-                    String rUserPassword = rs.getString("userPassword");
-                    if (userID.equals(rUserID) && userPassword.equals(rUserPassword)) {
-                        String updateSQL = "DELETE user SET userName=? WHERE userID=?";
-                        try (PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
-                            updateStmt.setString(1, userName);
-                            updateStmt.setString(2, userID);
-                            updateStmt.executeUpdate();
-                        }
-                    }
-                }
-            }
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-%>
-<p>개인 정보를 수정했습니다.</p>
-<a href="login.jsp">로그인 페이지로 돌아가기</a>
-</body>
-</html>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JSP 김민형 사이트</title>
 </head>
 <body>
 	<%
-		session.invalidate();
+	String userID = null;
+	if(session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	}
+
+		if (user.getUserID() == null || user.getUserPassword() == null ||
+		user.getUserName() == null || user.getUserGender() == null ||
+		user.getUserEmail() == null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('입력이 안된 사항이 있습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+		} else {
+			UserDAO userDAO = new UserDAO();
+			int result = userDAO.join(user);
+			if (result == -1) {
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('존재하는 아이디입니다.')");
+				script.println("history.back()");
+				script.println("</script>");
+			}
+			else {
+				session.setAttribute("userID", user.getUserPassword());
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("location.href = 'join.jsp'");
+				script.println("</script>");
+			}
+		}
+
+
 	%>
-	<script>
-		location.href = 'delete.jsp';
-	</script>
 </body>
 </html>
